@@ -33,8 +33,6 @@ You may also want to use any of a range of different COVID data packages and dat
 * https://ropensci.org/blog/2020/10/20/searching-medrxivr-and-biorxiv-preprint-data/
 * https://covidtracking.com/data/api
   * `readr::read_csv("https://api.covidtracking.com/v1/states/daily.csv")`
-* https://rt.live/
-  * `readr::read_csv("https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv")`
 
 ## Subsections are ok too
 
