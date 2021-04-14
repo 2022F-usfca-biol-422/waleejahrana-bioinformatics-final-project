@@ -1,7 +1,7 @@
 ---
 title: 'Your Title Here'
 author: "Don Francisco"
-date: "November 1, 2020"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: pdf_document
 csl: bioinformatics.csl
 bibliography: references.bib
