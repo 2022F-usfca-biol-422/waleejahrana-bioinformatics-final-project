@@ -8,6 +8,8 @@
 # Takes a single argument, which is an annotation object (a data frame) that
 # was read in by the function read_gff()
 
+# Begin Exclude Linting
+
 extract_genes_from_gff <- function(annotation_object) {
 
   # check input
@@ -28,3 +30,5 @@ extract_genes_from_gff <- function(annotation_object) {
 
   return(just_genes_cleaned)
 }
+
+# End Exclude Linting

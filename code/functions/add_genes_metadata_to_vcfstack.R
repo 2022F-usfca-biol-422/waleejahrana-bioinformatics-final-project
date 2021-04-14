@@ -18,6 +18,8 @@
 
 source("code/functions/assign_gene.R")
 
+# Begin Exclude Linting
+
 add_genes_metadata_to_vcfstack <- function(stacked_vcf,
                                            sra_runtable_path,
                                            cleaned_genes_table) {
@@ -38,3 +40,5 @@ add_genes_metadata_to_vcfstack <- function(stacked_vcf,
 
   return(merged_vcf)
 }
+
+# End Exclude Linting
