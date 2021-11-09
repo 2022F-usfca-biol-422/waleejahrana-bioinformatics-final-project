@@ -3,7 +3,7 @@
 
 language: r
 r: bioc-release
-sudo: required
+os: linux
 dist: focal
 cache: packages
 env:
