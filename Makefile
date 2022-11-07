@@ -35,7 +35,7 @@ check:
 	find . -name "*.sh" | xargs shellcheck
 
 output/Report.pdf: Report.Rmd references.bib code/14_render_rmarkdown.sh $(R_FUNCTIONS) $(VCF_FOR_R_FILES) $(GENOME_REF_ANN) $(SRA_RUNTABLE)
-	bash code/14_render_rmd.sh $< $(GENOME_REF_ANN) $(VCF_FOR_R_DIR) $(SRA_RUNTABLE)
+	bash code/14_render_rmarkdown.sh $< $(GENOME_REF_ANN) $(VCF_FOR_R_DIR) $(SRA_RUNTABLE)
 
 $(VCF_FOR_R_FILES): code/13_filter_vcf.sh $(VCF_FILES)
 	bash code/13_filter_vcf.sh $(VCF_DIR)/*.vcf
