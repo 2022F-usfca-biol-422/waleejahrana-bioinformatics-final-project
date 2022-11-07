@@ -1,11 +1,8 @@
-# call rmarkdown on all .Rmd files
-f <- list.files(recursive = TRUE)
+# get all files in the repo
+all_files <- list.files(recursive = TRUE)
 
-rmds <- f[grepl(".Rmd$", f)]
-r_scripts <- f[grepl(".R$", f)]
-
-lapply(rmds, rmarkdown::render)
-
+rmds <- all_files[grepl(".Rmd$", all_files)]
+r_scripts <- all_files[grepl(".R$", all_files)]
 
 # output lints
 for (rfile in r_scripts) {
