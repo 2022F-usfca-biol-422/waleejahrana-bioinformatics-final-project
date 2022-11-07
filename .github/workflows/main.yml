@@ -1,21 +1,9 @@
-# on: push
-      
-# name: Reproducibility
+# workflow by Naupaka Zimmerman nzimmerman@usfca.edu
+# November 7, 2022
 
-# jobs:
-#   render:
-#     name: Render assignment
-#     runs-on: ubuntu-latest
-#     env:
-#       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-#     steps:
-#       - uses: actions/checkout@v3
+on: [push, pull_request]
 
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
-on: [push]
-
-name: docker
+name: Check final project
 
 jobs:
   docker:
