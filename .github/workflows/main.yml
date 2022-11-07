@@ -40,5 +40,5 @@ jobs:
           for file in $(find . -type f -name "*.sh"); do shellcheck $file; done;
       - name: Check for spaces in filenames
         run: |-
-          if [ $(gfind . | ggrep -E '\s|\*|\?|\$|%' | wc -l) -gt 0 ]; then; \
-            echo "Spaces found in filenames"; gfind . | ggrep -E '\s|\*|\?|\$|%'; exit 1; fi
+          if [ $(find . | grep -E '\s|\*|\?|\$|%' | wc -l) -gt 0 ]; \
+            then echo "Spaces found in filenames"; find . | grep -E '\s|\*|\?|\$|%'; exit 1; fi
