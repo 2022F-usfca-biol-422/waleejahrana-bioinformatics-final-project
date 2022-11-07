@@ -11,7 +11,7 @@ for (rfile in r_scripts) {
 
 # expect no lints
 for (rfile in r_scripts) {
-  lintr::expect_lint_free(file = rfile)
+  lintr::expect_lint(checks = NULL, file = rfile)
 }
 
 
@@ -22,5 +22,5 @@ for (rmdfile in rmds) {
 
 # expect no lints
 for (rmdfile in rmds) {
-  lintr::expect_lint_free(file = rmdfile)
+  lintr::expect_lint(checks = NULL, file = rmdfile)
 }
