@@ -23,12 +23,19 @@ jobs:
     container: rocker/verse
     steps:
       - uses: actions/checkout@v3
-      - name: Install Package Dependencies
+      - name: Install Package and other Dependencies
         run: |-
           Rscript -e "install.packages('remotes', repos = 'https://packagemanager.rstudio.com/all/__linux__/focal/latest')"
           Rscript -e "remotes::install_deps(dependencies = TRUE, repos = 'https://packagemanager.rstudio.com/all/__linux__/focal/latest')"
-      - name: rmarkdown render
+          Rscript -e "devtools::install_github('leffj/mctoolsr')"
+          apt install shellcheck
+      - name: Render all Rmarkdown files
         run: |-
           Rscript -e "lapply(list.files(pattern = 'Rmd|rmd', recursive = TRUE), rmarkdown::render)"
-
+      - name: lint all Rmarkdown files and R scripts
+        run: |-
+          R -f tests/test_rmarkdown_files.R
+      - name: Run shellcheck on all bash scripts
+          for file in $(find . -type f -name "*.sh"); do shellcheck $file; done;
         # shell: Rscript {0}
+  #      script:
