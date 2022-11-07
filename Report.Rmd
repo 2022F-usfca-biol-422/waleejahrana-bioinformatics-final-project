@@ -94,7 +94,7 @@ vcf_with_metadata %>%
 ```{r example-table}
 # An example table to show the length of each gene using its start and end
 gene_table %>%
-  mutate(length= end - start) %>%
+  mutate(length = end - start) %>%
   select(gene_name, start, end, length) %>%
   knitr::kable(col.names = c("Gene Name",
                              "Start",
