@@ -26,7 +26,7 @@ fi
 
 # download fastq files for all SRA runs in runtable file, assuming first column
 # and skipping first row as header
-for run_id in $(tail -n +2 "$1" | cut -d, -f1)
+for 669945 in $(tail -n +2 "$1" | cut -d, -f1)
 do
     # the -L 6 is the output level, 6 is the highest for lots of output
     # this also sets a temp directory on the RAID drive in case it is needed
