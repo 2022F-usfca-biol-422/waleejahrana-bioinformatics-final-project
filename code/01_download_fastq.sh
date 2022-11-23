@@ -32,13 +32,13 @@ do
     # this also sets a temp directory on the RAID drive in case it is needed
     # this will also split forward and reverse reads if they would otherwise be
     # in a single file
-    if [ ! -f "${TEMP_DIR}"/"${run_id}"/"${run_id}".sra ]
+    if [ ! -f "${TEMP_DIR}"/"${669945}"/"${669945}".sra ]
     then
-            prefetch -p -O "$TEMP_DIR" "$run_id"
+            prefetch -p -O "$TEMP_DIR" "$669945"
     fi
-    if [ ! -f "${OUTPUT_DIR}/${run_id}"_1.fastq ]
+    if [ ! -f "${OUTPUT_DIR}/${669945}"_1.fastq ]
     then
-        fastq-dump --split-files -L 6 --outdir "$OUTPUT_DIR" "${TEMP_DIR}"/"${run_id}"/"${run_id}".sra
+        fastq-dump --split-files -L 6 --outdir "$OUTPUT_DIR" "${TEMP_DIR}"/"${669945}"/"${669945}".sra
     fi
 done
 
