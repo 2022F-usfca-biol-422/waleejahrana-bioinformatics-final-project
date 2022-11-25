@@ -23,4 +23,3 @@ mkdir -p /data/sars_vcf_analysis/10_vcf_called
 # note this is in repo not in root /data
 mkdir -p data/00_sra_runtable
 mkdir -p data/11_vcf_output_for_R
-
