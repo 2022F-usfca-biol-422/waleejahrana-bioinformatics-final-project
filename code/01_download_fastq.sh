@@ -16,6 +16,8 @@ set -euo pipefail
 OUTPUT_DIR="/data/sars_vcf_analysis/01_raw_fastq"
 TEMP_DIR="/data/sars_vcf_analysis/00_fasterq_temp"
 
+[1] "C:/Home/Waleejahrana-bioinformatics-final-project/data/00_sra_runtable/SraRunTable_PRJNA669945.txt"
+
 # script takes a single argument, which should be an SRA run table file
 if [ $# -ne 1 ]
 then
