@@ -28,5 +28,5 @@ do
     # NOTE: here this is using TrimmomaticSE for single ends
     # This is only for expediency's sake for the class, but in a real analysis this should likely
     # be adjusted to use a paired end approach if the data warrant it
-    TrimmomaticSE -threads 4 -phred33 "$seq_file" "${OUTPUT_DIR}$(basename -s .fastq "$seq_file").trim.fastq" LEADING:5 TRAILING:5 SLIDINGWINDOW:10:50 MINLEN:50 
+    TrimmomaticSE -threads 4 -phred33 "$seq_file" "${OUTPUT_DIR}$(basename -s .fastq "$seq_file").trim.fastq" LEADING:5 TRAILING:5 SLIDINGWINDOW:8:25 MINLEN:50
 done
