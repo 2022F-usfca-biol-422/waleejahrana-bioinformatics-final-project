@@ -1,5 +1,5 @@
 ---
-title: 'Your Title Here'
+title: 'The Palestinian Covid Conflict'
 author: "Don Francisco"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: pdf_document
@@ -20,6 +20,8 @@ knitr::opts_chunk$set(echo = FALSE,
 
 # Background and Overview
 
+
+The outbreak of the SARS-CoV-2 infection was catastrophic for the people in Palestine. Palestinians were in amidst a cloudy political climate with the people of Israel. The Israeli-Palestinian conflict not only became the reason for the increased cases per day, this conflict expanded the Coronavirus geographically exponentially. The objective of this analysis was to assess the number of cases and their locations in correlation with the Israeli-Plaestinan conflict. This was done by …….. My findings concluded that …
 This is a report on SARS-CoV-2, including some variant analysis [@koyama2020variant].
 
 # Methods
