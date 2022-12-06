@@ -21,8 +21,8 @@ knitr::opts_chunk$set(echo = FALSE,
 # Background and Overview
 
 
-The outbreak of the SARS-CoV-2 infection was catastrophic for the people in Palestine. Palestinians were in amidst a cloudy political climate with the people of Israel. The Israeli-Palestinian conflict not only became the reason for the increased cases per day, this conflict expanded SARS-CoV-2 geographically as well as exponentially. The objective of this analysis was to assess the number of cases and their locations in correlation with the Israeli-Plaestinan conflict. This was done by …….. My findings concluded that …
-This is a report on SARS-CoV-2, including some variant analysis [@koyama2020variant].
+The outbreak of the SARS-CoV-2 infection was catastrophic for the people in Palestine. Palestinians were in amidst a cloudy political climate with the people of Israel. The Israeli-Palestinian conflict not only became the reason for the increased cases per day, this conflict expanded SARS-CoV-2 geographically as well as exponentially across the nations. The objective of this analysis was to assess the differences in SARS-CoV-2 data from settlements of Israel in contrast to settlements of Palestine regarding the Israeli-Palestinian conflict. This was done by …….. My findings concluded that …
+This is a report on SARS-CoV-2, including some variant analysis [@koyama2020variant]. From a historical perspective, the ethnic cleansing of Palestinians further legitimize the existence of a colonial framework. It was horrific to see and hear the depictions of Palestinians being forced to leave at gunpoint. To the Palestinians, most did not feel to be at war, and were oppressed in various forms. The portrayal of Deir yassin, from family relatives and the documentary, made me understand the significance of persecution that Paletinans faced in the era. I found it odd to how scholars debated on whether ethnic cleansing was the root of these atrocious crimes. In like manner, the images of the Trail of Tears solidified the idea of mass colonization in this region. To not acknowledge this, is to to not acknowledge the obvious, which is the evidence of the forced removal of an indegenous people form their homeland. Knowing this, is there really any more reason to doubt the existence of an aprteid state because of the logistics behind the term: settler colonialism. 
 
 # Methods
 
@@ -74,82 +74,69 @@ vcf_with_metadata <- add_genes_metadata_to_vcfstack(
 # Figures
 
 ```{r}
+# create histogram to display average quality number in SNPs
 ggplot(vcf_with_metadata,
        aes(x = as.numeric(qual))) +
   geom_histogram()
 ```
 
 
-```{r sample-plot}
-# create a plot of SNP quality average within each gene across all samples
+```{r plot}
+# create a plot of average spot length within each gene
 vcf_with_metadata %>%
-  filter(!is.na(gene)) %>% # get rid of SNPs not in gene regions
-  group_by(gene, pos) %>%
-  tally() %>% # this gives a column n for the number of gene by position
+  group_by(gene, AvgSpotLen) %>%
+  tally() %>% # this gives a column n for the average spot length for each gene
   group_by(gene) %>%
-  tally() %>% # this collapses that down to the number of unique SNP locations
+  tally() %>% 
   ggplot(aes(x = gene,
              y = n)) +
     geom_col() +
-    labs(title = "Count of distinct SNPs in Named SARS-CoV-2 Genes",
-         x = "Gene Name") +
+    labs(title = "Average Spot length Within Each Gene",
+         x = "Gene Identified") +
   theme_few() # get rid of the grey background
-```
-
-```{r plot-transportation-types}
-# create a plot of the transportation types to include in knitted
-# document and save that figure to the output/figures directory as a png
-transportation_type_plot <- ggplot(data = tallied_subset,
-                       aes(x = geo_type,
-                           y = n,
-                           fill = transportation_type)) +
-geom_col(position = position_dodge()) +
-labs(title = paste("Number of cities and/or counties in",
-                   state_to_analyze,
-                   "with mobility data"),
-     x = "Type of areas",
-     y = "Number of areas")
-ggsave(plot = transportation_type_plot,
-       filename = paste0("output/figures/",
-                         core_name,
-                         "_",
-                         state_no_spaces,
-                         "_transportation_type_plot.png"))
-transportation_type_plot
 ```
 
 
 ```{r plot-time-series}
 # produce a line plot of relative SNPs across Palestine with date
 # on the x axis and mean SNPs on the y axis
-timeseries_plot <- vcf_with_metadata %>%
-  filter(Collection_date == "driving") %>%
-  group_by(date) %>%
-  summarize(mean_mobility = mean(relative_mobility)) %>%
-  ggplot(aes(x = lubridate::ymd(date), y = mean_mobility)) + geom_line() +
-  labs(title = paste("Statewide mean relative mobility driving levels in",
-                     state_to_analyze,
-                     "during COVID-19"),
-       x = "Date",
-       y = "Mean relative mobility")
-ggsave(plot = timeseries_plot,
-       filename = paste0("output/figures/",
-                         core_name,
-                         "_",
-                         state_no_spaces,
-                         "_timeseries_plot.png"))
-timeseries_plot
+  vcf_with_metadata %>%
+  group_by(Collection_Date, pos) %>%
+  tally() %>%
+  group_by(Collection_Date) %>%
+  tally() %>%
+  ggplot(aes(x = lubridate::ymd(Collection_Date),
+             y = n)) +
+       geom_point() +
+       labs(title = paste("SARS-Cov-2 SNP Changes in Palestine"),
+            x = "Date",
+            y = "Observed SNPs")
 ```
 
 
-```{r}
+```{r N gene SNPs within Israeli Territory and Palestinian territory}
 vcf_with_metadata %>%
   tidyr::separate(col = geo_loc_name,
                   into = c("country", "city"),
                   sep = ": ") %>%
     tidyr::separate(col = city,
                   into = c("city1", "city2"),
-                  sep = "\\\\, ")
+                  sep = "\\\\, ") %>%
+filter(gene == "N") %>%
+select(gene, pos, alt, ref, city1, city2,) %>%
+group_by(gene, pos, alt, ref, city1, city2,) %>%
+tally() %>%
+arrange(desc(n)) %>%
+head (10) %>%
+arrange(pos) %>%
+knitr::kable(col.names = c("Gene",
+                        "Position",
+                        "Reference",
+                        "Variation",
+                        "city1",
+                        "city2",
+                        "n"))
+        
 ```
 
 
@@ -158,21 +145,26 @@ vcf_with_metadata %>%
 
 # Tables
 
-```{r example-table}
-# An example table to show the length of each gene using its start and end
-gene_table %>%
-  mutate(length = end - start) %>%
-  select(gene_name, start, end, length) %>%
-  knitr::kable(col.names = c("Gene Name",
-                             "Start",
-                             "End",
-                             "Length"))
+```{r table}
+# table showing the position of the SNP depending on the unique release and collection date
+vcf_with_metadata %>%
+  arrange(vcf_with_metadata$Collection_Date) %>%
+  select(Collection_Date, ReleaseDate, alt, gene, pos) %>%
+  unique() %>%
+  head (30) %>%
+  knitr::kable(col.names = c("Collection Date",
+                             "Release Date",
+                             "Gene",
+                             "SNP",
+                             "Position"),
+                              row.names = FALSE,) 
+
 ```
 
-```{r N-gene-mutation}
-# create a table to display the occurrences of the S gene
+```{r ORF3a--gene-mutation}
+# create a table to display the occurrences of the ORF3a gene
 vcf_with_metadata %>%
-filter(gene == "N") %>%
+filter(gene == "ORF3a") %>%
 select(gene, pos, alt, ref) %>%
 group_by(gene, pos, alt, ref) %>%
 tally() %>%
