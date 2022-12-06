@@ -74,7 +74,9 @@ vcf_with_metadata <- add_genes_metadata_to_vcfstack(
 # Figures
 
 ```{r}
-ggplot(vcf_with_metadata, aes(x = as.numeric(qual))) + geom_histogram()
+ggplot(vcf_with_metadata,
+       aes(x = as.numeric(qual))) +
+  geom_histogram()
 ```
 
 
@@ -118,10 +120,10 @@ transportation_type_plot
 
 
 ```{r plot-time-series}
-# produce a line plot of relative driving mobility across the state with date
-# on the x axis and mean relative mobility on the y axis
-timeseries_plot <- long_data %>%
-  filter(transportation_type == "driving") %>%
+# produce a line plot of relative SNPs across Palestine with date
+# on the x axis and mean SNPs on the y axis
+timeseries_plot <- vcf_with_metadata %>%
+  filter(Collection_date == "driving") %>%
   group_by(date) %>%
   summarize(mean_mobility = mean(relative_mobility)) %>%
   ggplot(aes(x = lubridate::ymd(date), y = mean_mobility)) + geom_line() +
@@ -139,23 +141,16 @@ ggsave(plot = timeseries_plot,
 timeseries_plot
 ```
 
-```{r long-data-plot}
-# create a plot of the transportation types to include in knitted
-# document and save that figure to the output/figures directory as a png
-long_scatterplot <- ggplot(data = tallied_subset,
-                           aes(color = geo_type,
-                               x = transportation_type,
-                               y = n)) +
-  geom_point(shape = 18) +
-  labs(title = paste("Numbers of areas that have 
-                     types of mobility in",
-                     state_to_analyze,
-                     "with mobility data"),
-       x = "Type of Transportation",
-       y = "Number of areas")
-long_scatterplot
-```
 
+```{r}
+vcf_with_metadata %>%
+  tidyr::separate(col = geo_loc_name,
+                  into = c("country", "city"),
+                  sep = ": ") %>%
+    tidyr::separate(col = city,
+                  into = c("city1", "city2"),
+                  sep = "\\\\, ")
+```
 
 
 
@@ -172,6 +167,24 @@ gene_table %>%
                              "Start",
                              "End",
                              "Length"))
+```
+
+```{r N-gene-mutation}
+# create a table to display the occurrences of the S gene
+vcf_with_metadata %>%
+filter(gene == "N") %>%
+select(gene, pos, alt, ref) %>%
+group_by(gene, pos, alt, ref) %>%
+tally() %>%
+arrange(desc(n)) %>%
+head (10) %>%
+arrange(pos) %>%
+knitr::kable(col.names = c("Gene",
+                        "Position",
+                        "Reference",
+                        "Variation",
+                        "Occurrences"
+                        ))
 ```
 
 **Table 1**: Gene names, locations, and lengths in the SARS-CoV-2 genome. Higher SNP counts in the S and N genes may be related to the larger size of these genes.
