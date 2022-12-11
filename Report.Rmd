@@ -77,7 +77,7 @@ vcf_with_metadata %>%
   group_by(gene, AvgSpotLen) %>%
   tally() %>% # this gives a column n for the average spot length for each gene
   group_by(gene) %>%
-  tally() %>% 
+  tally() %>%
   ggplot(aes(x = gene,
              y = n)) +
     geom_col() +
@@ -113,42 +113,38 @@ vcf_with_metadata %>%
                   into = c("city1", "city2"),
                   sep = "\\\\, ") %>%
 filter(gene == "N") %>%
-select(gene, pos, alt, ref, city1, city2,) %>%
-group_by(gene, pos, alt, ref, city1, city2,) %>%
+select(gene, pos, alt, ref, city1, city2, ) %>%
+group_by(gene, pos, alt, ref, city1, city2, ) %>%
 tally() %>%
 arrange(desc(n)) %>%
-head (10) %>%
+head(10) %>%
 arrange(pos) %>%
-knitr::kable(col.names = c("Gene" ,
-                        "Position" ,
-                        "Reference" ,
-                        "Variation" ,
-                        "city1" ,
-                        "city2" ,
+knitr::kable(col.names = c("Gene",
+                        "Position",
+                        "Reference",
+                        "Variation",
+                        "city1",
+                        "city2",
                         "n"))
-        
 ```
-
-
-
 **Figure 1**: N and S genes have more unique SNPs in the set of samples analyzed.
 
 # Tables
 
 ```{r table}
-# table showing the position of the SNP depending on the unique release and collection date
+# table showing the position of the SNP depending on the unique release and
+# collection date
 vcf_with_metadata %>%
   arrange(vcf_with_metadata$Collection_Date) %>%
   select(Collection_Date, ReleaseDate, alt, gene, pos) %>%
   unique() %>%
-  head (30) %>%
-  knitr::kable(col.names = c("Collection Date" ,
-                             "Release Date" ,
+  head(30) %>%
+  knitr::kable(col.names = c("Collection Date",
+                             "Release Date",
                              "Gene",
-                             "SNP" ,
-                             "Position") ,
-                              row.names = FALSE,) 
-
+                             "SNP",
+                             "Position"),
+                              row.names = FALSE, )
 ```
 
 ```{r ORF3a--gene-mutation}
@@ -159,14 +155,13 @@ select(gene, pos, alt, ref) %>%
 group_by(gene, pos, alt, ref) %>%
 tally() %>%
 arrange(desc(n)) %>%
-head (10) %>%
+head(10) %>%
 arrange(pos) %>%
 knitr::kable(col.names = c("Gene",
                         "Position",
                         "Reference",
                         "Variation",
-                        "Occurrences"
-                        ))
+                        "Occurrences"))
 ```
 
 **Table 1**: Gene names, locations, and lengths in the SARS-CoV-2 genome. Higher SNP counts in the S and N genes may be related to the larger size of these genes.
