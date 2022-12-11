@@ -19,26 +19,16 @@ knitr::opts_chunk$set(echo = FALSE,
 ```
 
 # Background and Overview
-
-
-The outbreak of the SARS-CoV-2 infection was catastrophic for the people in Palestine. Palestinians were in amidst a cloudy political climate with the people of Israel. The Israeli-Palestinian conflict not only became the reason for the increased cases per day, this conflict expanded SARS-CoV-2 geographically as well as exponentially across the nations. The objective of this analysis was to assess the differences in SARS-CoV-2 data from settlements of Israel in contrast to settlements of Palestine regarding the Israeli-Palestinian conflict. This was done by …….. My findings concluded that …
-This is a report on SARS-CoV-2, including some variant analysis [@koyama2020variant]. From a historical perspective, the ethnic cleansing of Palestinians further legitimize the existence of a colonial framework. It was horrific to see and hear the depictions of Palestinians being forced to leave at gunpoint. To the Palestinians, most did not feel to be at war, and were oppressed in various forms. The portrayal of Deir yassin, from family relatives and the documentary, made me understand the significance of persecution that Paletinans faced in the era. I found it odd to how scholars debated on whether ethnic cleansing was the root of these atrocious crimes. In like manner, the images of the Trail of Tears solidified the idea of mass colonization in this region. To not acknowledge this, is to to not acknowledge the obvious, which is the evidence of the forced removal of an indegenous people form their homeland. Knowing this, is there really any more reason to doubt the existence of an aprteid state because of the logistics behind the term: settler colonialism. 
+SARS-CoV-2 was the virus that caused the illness COVID-19. It was a member of the coronavirus family of viruses, which also included the viruses that caused the common cold and severe acute respiratory syndrome (SARS). SARS-CoV-2 was highly infectious and spread easily through respiratory droplets, such as when an infected person coughed or sneezed. Symptoms of COVID-19 could range from mild (fever, cough, and difficulty breathing) to severe (pneumonia, organ failure, and death). The virus was first identified in Wuhan, China in December 2019 and quickly spread to countries around the world, leading to the global pandemic. Scientists and health organizations worked to develop effective treatments and vaccines for the illness, and many countries implemented measures to slow the spread of the virus, such as quarantines and travel restrictions. However, the virus continued to spread and had a significant impact on global health and economies. In Palestine, the government implemented measures to prevent the spread of SARS-CoV-2, such as closing schools and public gatherings, and implementing quarantines and travel restrictions. However, the virus still had a significant impact on the country, with many people becoming infected and some losing their lives to the illness. Palestinians were in amidst a cloudy political climate with the people of Israel. The Israeli-Palestinian conflict not only became the reason for the increased cases per day, this conflict expanded SARS-CoV-2 geographically as well as exponentially across the nations. The objective of this analysis was to assess the differences in SARS-CoV-2 data from settlements of Israel in contrast to the settlements of Palestine regarding the Israeli-Palestinian conflict. This was done by utilizing Rmarkdown, git/GitHub, and the Linux command line to analyze the data taken from The National Center for Biotechnology Information (NCBI). I found that the conflict played an immense role in the rise of the virus in Palestinian territories rather than Israeli territories. 
+The Palestinian-Israeli conflict is a long-standing dispute between the Palestinian and Israeli people over land and national identity. The conflict has its roots in the aftermath of World War II, when the British withdrew from Palestine and the United Nations partitioned the land into two states, one for the Jewish people and one for the Arab people. Since then, the conflict has taken many forms, including wars, terrorism, and political negotiations. The main issues at the heart of the conflict are the status of Jerusalem, the right of Palestinian refugees to return to their homes, and the Israeli settlements in the West Bank and Gaza Strip. The conflict has resulted in violence and suffering for both.
 
 # Methods
-
-See the set of tutorials on the [vcfR package website](https://knausb.github.io/vcfR_documentation/index.html).
-
-You may also want to use any of a range of different COVID data packages and data sources:
-
-* https://kjhealy.github.io/covdata/
-* https://github.com/como-ph/oxcovid19
-* https://ropensci.org/blog/2020/10/20/searching-medrxivr-and-biorxiv-preprint-data/
-* https://covidtracking.com/data/api
-  * `readr::read_csv("https://api.covidtracking.com/v1/states/daily.csv")`
-
+To begin my project I began to search for an adequate dataset by utilizing the National Library of Medicine (). The dataset needed to be a fair amount of samples, anywhere from 50+, and the dataset must have been illumina sequencing data. After finding the perfect sample sized illumina dataset; my Palestinian dataset, I then moved on to running that dataset through the SRA Run selector(). This indicated the amount of runs in the dataset and also allowed me to download the metadata of my dataset. Obtaining a dataset that had high quality data was crucial through this process, to access the quality of the data, the dataset had to be run through a 14-step bash pipeline created by Dr. Zimmerman. Dr. Zimmerman provided each student a unique Tule port container and ID to log into the USF server in order to successfully gain access to the 14 step Bash pipeline with our own unique dataset. By entering our SRA dataset ID into the pipeline, the output produced a number of trimmed fastq VCF files. The number of files produced depended on the amount of samples, in my case, 69 VCF files were produced. Trimming the dataset was vital in order for the poor quality data to be disposed of properly. I used a libre server known as Cyberduck (), to analyze my data efficiently. After reading some samples, it was evident that some data needed to be trimmed to arrange an easy final output of my data; therefore, by entering into the 5th step of the bash pipeline, “05_trim.sh”  I altered the “Minlen” to 50 to have the pipeline adjusted to my sequence data read length and was able to achieve a cleaner output. 
+	To start the process of gathering all my tabular data, I needed to invest a great deal in research about my country and the conflicts during the time of my data and how it correlated to SARS-CoV-2. There were plenty of news articles about the how the Israeli-Palestininan conflict left the Palestinian people far less equipped for the pandemic in regards to resources, infrastructure, and even vaccines than the Israeli people (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8583470/) . There were a number of articles discussing the difference in the amount of vaccines distributed to the Israeli territories in comparison to the Palestininan territories (https://www.reuters.com/article/factcheck-covid-israelpalestine-idUSL1N2PN1X4). As a result of these articles, the data to code about this issue fit together like a puzzle. By navigating back on my R (Tule) server, I began to invest my time in the Report.Rmd creating my figures and tables using ggplot2. 
 ## Subsections are ok too
 
 # Results and Discussion
+After conducting an abundance of research on the effects of the Palestinian-Israeli conflict in regards to Covid-19 cases in Palestine, I  have concluded that the conflict had much to do with the improper distribution of vaccinations and the rise on Covid-19 cases in general.. This conclusion is supported by the data collected from the study Google conducted with Palestine, (https://health.google.com/covid-19/open-data/explorer?loc=PS), and Israel (explorer) which showed that the number of cases was significantly higher in Palestinian territories than in Israeli territories. The “Israel” country with Jeruselum as the district is also arguably Palestinian territory as well which supported my argument even more. With all of my VCF files and compressed data regarding my SNPs, I automated all of my tables and figures using R code in my Tule server. The first figure I created was a histogram that demonstrated the quality of the SNPs in my dataset. The figure displayed the count of good quality SNPs numerically which showed the validity of the quality of my dataset. My second and third figures compare the amount of Covid-19 vaccinations between the two nations. The significant increase in vaccinations in Israel correlates to the lack of resources distributed in Palestine. The difference in vaccinations was more than 300,000 due to the incorrectly labeled territory of Israel and Palestine. The Jerusalem district in the Israeli territory consists more of the Palestininan people. 
 
 ```{r load-packages-and-functions}
 library("vcfR")
@@ -129,12 +119,12 @@ tally() %>%
 arrange(desc(n)) %>%
 head (10) %>%
 arrange(pos) %>%
-knitr::kable(col.names = c("Gene",
-                        "Position",
-                        "Reference",
-                        "Variation",
-                        "city1",
-                        "city2",
+knitr::kable(col.names = c("Gene" ,
+                        "Position" ,
+                        "Reference" ,
+                        "Variation" ,
+                        "city1" ,
+                        "city2" ,
                         "n"))
         
 ```
@@ -152,11 +142,11 @@ vcf_with_metadata %>%
   select(Collection_Date, ReleaseDate, alt, gene, pos) %>%
   unique() %>%
   head (30) %>%
-  knitr::kable(col.names = c("Collection Date",
-                             "Release Date",
+  knitr::kable(col.names = c("Collection Date" ,
+                             "Release Date" ,
                              "Gene",
-                             "SNP",
-                             "Position"),
+                             "SNP" ,
+                             "Position") ,
                               row.names = FALSE,) 
 
 ```
@@ -182,3 +172,16 @@ knitr::kable(col.names = c("Gene",
 **Table 1**: Gene names, locations, and lengths in the SARS-CoV-2 genome. Higher SNP counts in the S and N genes may be related to the larger size of these genes.
 
 # Sources Cited
+https://www.reuters.com/article/factcheck-covid-israelpalestine-idUSL1N2PN1X4
+https://www.ncbi.nlm.nih.gov/bioproject/?term=(txid2697049[Organism:noexp]%20NOT%200[Mbases])%20AND%20bioproject_sra[filter]%20NOT%20bioproject_gap[filter]
+https://www.cdc.gov/mmwr/volumes/70/wr/mm7009e3.htm
+https://health.google.com/covid-19/open-data/explorer?loc=IL_JM
+https://health.google.com/covid-19/open-data/explorer?loc=PS
+Israeli-Palestinian Conflict | Global Conflict Trackerhttps://www.cfr.org › global-conflict-tracker › israeli-pa…
+https://www.amnesty.org/en/location/middle-east-and-north-africa/israel-and-occupied-palestinian-territories/report-israel-and-occupied-palestinian-territories/
+
+https://www.ncbi.nlm.nih.gov/bioproject/?term=(txid2697049[Organism:noexp]%20NOT%200[Mbases])%20AND%20bioproject_sra[filter]%20NOT%20bioproject_gap[filter]
+https://www.ncbi.nlm.nih.gov/Traces/study/ggq 
+https://cyberduck.io
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8583470/
+
