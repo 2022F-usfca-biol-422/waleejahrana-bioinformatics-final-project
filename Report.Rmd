@@ -31,7 +31,7 @@ The Israeli-Palestinian conflict has had a significant impact on healthcare in t
 
 To begin my project I began to search for an adequate dataset by utilizing the National Library of Medicine [@NCBI]. The dataset needed to be a fair amount of samples, anywhere from 50+,  and the dataset must have been Illumina sequencing data. After finding the perfect sample-sized Illumina dataset; my Palestinian dataset, I then moved on to running that dataset through the SRA Run selector [@runselector]. This indicated the number of runs in the dataset and also allowed me to download the metadata of my dataset. Obtaining a dataset that had high-quality data was crucial through this process, to access the quality of the data, the dataset had to be run through a 14-step bash pipeline created by Dr. Zimmerman. Dr. Zimmerman provided each student a unique Tule port container and ID to log into the USF server in order to successfully gain access to the 14-step Bash pipeline with our own unique dataset. By entering our SRA dataset ID into the pipeline, the output produced a number of trimmed fastq VCF files. The number of files produced depended on the number of samples, in my case, 69 VCF files were produced. Trimming the dataset was vital in order for the poor-quality data to be disposed of properly. I used a libre server known as Cyberduck [@cyberduck], to analyze my data efficiently. After reading some samples, it was evident that some data needed to be trimmed to arrange an easy final output of my data; therefore, by entering into the 5th step of the bash pipeline, “05_trim.sh”  I altered the “Minlen” to 50 to have the pipeline adjusted to my sequence data read length and was able to achieve a cleaner output.
 
-	To start the process of gathering all my tabular data, I needed to invest a great deal in research about my country and the conflicts during the time of my data and how it correlated to SARS-CoV-2. There were plenty of news articles about how the Israeli-Palestininan conflict left the Palestinian people far less equipped for the pandemic in regards to resources, infrastructure, and even vaccines than the Israeli people [@Israeliimpact]. There were a number of articles discussing the difference in the number of vaccines distributed to the Israeli territories in comparison to the Palestinian territories [@reuters2021]. As a result of these articles, the data to code about this issue fit together like a puzzle. By navigating back to my R (Tule) server, I began to invest my time in the Report.Rmd creating my figures and tables using ggplot2. 
+To start the process of gathering all my tabular data, I needed to invest a great deal in research about my country and the conflicts during the time of my data and how it correlated to SARS-CoV-2. There were plenty of news articles about how the Israeli-Palestininan conflict left the Palestinian people far less equipped for the pandemic in regards to resources, infrastructure, and even vaccines than the Israeli people [@Israeliimpact]. There were a number of articles discussing the difference in the number of vaccines distributed to the Israeli territories in comparison to the Palestinian territories [@reuters2021]. As a result of these articles, the data to code about this issue fit together like a puzzle. By navigating back to my R (Tule) server, I began to invest my time in the Report.Rmd creating my figures and tables using ggplot2. 
 	
 # Results and Discussion
 
@@ -115,7 +115,9 @@ vcf_with_metadata %>%
 
 
 **Figure 1**: The overall average quality number in SNPs. This is to prove validity of dataset
+
 **Figure 2**: A plot displaying the average spot length within each gene. Allows to identify any larger genes in a set of data.
+
 **Figure 3**: A line plot of relative SNPs across Palestine with date on the x-axis and mean SNPs on the y-axis
 
 # Tables
@@ -162,6 +164,7 @@ knitr::kable(col.names = c("Gene",
 ```
 
 ```{r Table-cumulative-vacciantions-Israel} 
+# this is a table that shows the cumulative number of vaccines in Israel
   israeli_vaccines <- read.csv("data/raw_data/vaccinationsLS.csv")
   israeli_vaccines %>%
   arrange(israeli_vaccines$date) %>%
@@ -174,6 +177,7 @@ knitr::kable(col.names = c("Gene",
 ```
 
 ```{r Table-cumulative-vacciantions-Palestine}
+# this is a table that shows the cumulative number of vaccines in Palestine
 palestine_vaccines <- read.csv("data/raw_data/vaccinations_PL.csv")
 palestine_vaccines %>%
   arrange(palestine_vaccines$date) %>%
@@ -186,8 +190,11 @@ palestine_vaccines %>%
 ```
 
 **Table 1**: Shows the frequency of N gene in Palestinian territory. N gene indicates traits of virus. The N gene frequency is more common amongst Palestinian territory. 
+
 **Table 2**: This table displays the occurrences of the N gene to compare with the frequency of the gene.
+
 **Table 3**: Outside data source indicating the amount of cumulative vaccinations for Israel.
+
 **Table 4**: Outside data source indicating the amount of cumulative vaccinations for Palestine.
 
 # Sources Cited
