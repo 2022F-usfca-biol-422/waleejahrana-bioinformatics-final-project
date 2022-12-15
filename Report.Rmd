@@ -78,7 +78,7 @@ ggplot(vcf_with_metadata,
        aes(x = as.numeric(qual))) +
   geom_histogram()
 ```
-
+**Figure 1**: The overall average quality number in SNPs. This is to prove validity of dataset
 
 ```{r bar-plot-average-spot-length}
 # create a plot of average spot length within each gene
@@ -94,7 +94,7 @@ vcf_with_metadata %>%
          x = "Gene Identified") +
   theme_few() # get rid of the grey background
 ```
-
+**Figure 2**: A plot displaying the average spot length within each gene. Allows to identify any larger genes in a set of data.
 
 ```{r plot-time-series}
 # produce a line plot of relative SNPs across Palestine with date
@@ -111,13 +111,6 @@ vcf_with_metadata %>%
             x = "Date",
             y = "Observed SNPs")
 ```
-
-
-
-**Figure 1**: The overall average quality number in SNPs. This is to prove validity of dataset
-
-**Figure 2**: A plot displaying the average spot length within each gene. Allows to identify any larger genes in a set of data.
-
 **Figure 3**: A line plot of relative SNPs across Palestine with date on the x-axis and mean SNPs on the y-axis
 
 # Tables
@@ -145,6 +138,7 @@ knitr::kable(col.names = c("Gene",
                         "city2",
                         "n"))
 ```
+**Table 1**: Shows the frequency of N gene in Palestinian territory. N gene indicates traits of virus. The N gene frequency is more common amongst Palestinian territory. 
 
 ```{r N-gene-mutation}
 # create a table to display the occurrences of the N gene
@@ -162,6 +156,7 @@ knitr::kable(col.names = c("Gene",
                         "Variation",
                         "Occurrences"))
 ```
+**Table 2**: This table displays the occurrences of the N gene to compare with the frequency of the gene.
 
 ```{r Table-cumulative-vacciantions-Israel} 
 # this is a table that shows the cumulative number of vaccines in Israel
@@ -175,6 +170,7 @@ knitr::kable(col.names = c("Gene",
                              "location_key",
                              "cumulative_persons_vaccinated"))
 ```
+**Table 3**: Outside data source indicating the amount of cumulative vaccinations for Israel.
 
 ```{r Table-cumulative-vacciantions-Palestine}
 # this is a table that shows the cumulative number of vaccines in Palestine
@@ -188,13 +184,6 @@ palestine_vaccines %>%
                              "location_key",
                              "cumulative_persons_vaccinated"))
 ```
-
-**Table 1**: Shows the frequency of N gene in Palestinian territory. N gene indicates traits of virus. The N gene frequency is more common amongst Palestinian territory. 
-
-**Table 2**: This table displays the occurrences of the N gene to compare with the frequency of the gene.
-
-**Table 3**: Outside data source indicating the amount of cumulative vaccinations for Israel.
-
 **Table 4**: Outside data source indicating the amount of cumulative vaccinations for Palestine.
 
 # Sources Cited
