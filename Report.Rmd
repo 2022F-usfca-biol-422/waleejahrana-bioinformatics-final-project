@@ -1,6 +1,6 @@
 ---
-title: 'Your Title Here'
-author: "Don Francisco"
+title: 'The Palestinian Covid Conflict'
+author: "Waleejah Rana"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: pdf_document
 csl: bioinformatics.csl
@@ -8,7 +8,7 @@ bibliography: references.bib
 params:
   gff_file_path: "data/metadata/sars_refgenome_annotation.gff"
   vcf_dir_path: "data/11_vcf_output_for_R"
-  sra_runtable_path: "data/00_sra_runtable/SraRunTable_PRJNA656695_short_example.txt"
+  sra_runtable_path: "data/00_sra_runtable/SraRunTable_PRJNA669945.txt"
 ---
 
 ```{r setup, include = FALSE}
@@ -20,23 +20,24 @@ knitr::opts_chunk$set(echo = FALSE,
 
 # Background and Overview
 
-This is a report on SARS-CoV-2, including some variant analysis [@koyama2020variant].
+SARS-CoV-2 was the virus that caused the illness of COVID-19. It was a member of the coronavirus family of viruses, which also included the viruses that caused the common flu and severe acute respiratory syndrome (SARS). SARS-CoV-2 was highly infectious and spread easily through respiratory droplets, such as when an infected person coughed or sneezed. Symptoms of COVID-19 range from mild fevers, cough, and troubled breathing, to severe: pneumonia, organ failure, and even death). The virus was first identified in Wuhan, China in December 2019 and rapidly spread to countries around the world, leading to the global pandemic. The biology of COVID-19 is complex and is still being studied by scientists and medical experts. SARS-CoV-2 is a type of coronavirus that primarily affects the respiratory system. When the virus enters the body, it attaches to cells in the respiratory tract and begins to reproduce. This event can lead to symptoms such as fever, cough, and difficulty breathing. In severe cases, the virus can cause pneumonia, which can be life-threatening.
+
+Scientists and health organizations worked to develop effective treatments and vaccines for the illness, and many countries implemented measures to slow the spread of the virus, including quarantines and travel restrictions. However, the virus continued to spread and had a significant impact on global health and economies. In Palestine, the government implemented measures to prevent the spread of SARS-CoV-2, such as closing schools and public gatherings and implementing quarantines and travel restrictions. However, the virus still significantly impacted the country, with many people becoming infected and some losing their lives to the illness. Palestinians were amidst a cloudy political climate with the people of Israel. The Israeli-Palestinian conflict not only became the reason for the increased cases per day, but this conflict also expanded SARS-CoV-2 geographically as well as exponentially across the nations [@Israeliimpact]. The objective of this analysis was to assess the differences in SARS-CoV-2 data from settlements of Israel in contrast to the settlements of Palestine regarding the Israeli-Palestinian conflict. This was done by utilizing R markdown, git/GitHub, and the Linux command line to analyze the data taken from The National Center for Biotechnology Information [@NCBI]. I found that the conflict played an immense role in the rise of the virus in Palestinian territories rather than Israeli territories. 
+
+The Palestinian-Israeli conflict is a long-standing dispute between the Palestinian and Israeli people over land and national identity. The conflict has its roots in the aftermath of World War II when the British withdrew from Palestine and the United Nations separated the land into two divided states, one for the Jewish people and one for the Arab people [@amnesty]. Since then, the conflict has taken many forms, including wars, terrorism, and political negotiations. The main issues at the heart of the conflict are the status of Jerusalem, the right of Palestinian refugees to return to their homes, and the Israeli settlements in the West Bank and Gaza Strip. The conflict has resulted in violence and suffering for both [@CFA].
+The Israeli-Palestinian conflict has had a significant impact on healthcare in the region. The ongoing violence and political instability have disrupted the delivery of healthcare services and have made it difficult for many people to access medical care. In addition, the blockade of Gaza and the destruction of medical facilities have made it even more difficult for people in the region to receive the healthcare they need. The conflict has also caused psychological distress and mental health problems for many people living in the region.
 
 # Methods
 
-See the set of tutorials on the [vcfR package website](https://knausb.github.io/vcfR_documentation/index.html).
+To begin my project I began to search for an adequate dataset by utilizing the National Library of Medicine [@NCBI]. The dataset needed to be a fair amount of samples, anywhere from 50+,  and the dataset must have been Illumina sequencing data. After finding the perfect sample-sized Illumina dataset; my Palestinian dataset, I then moved on to running that dataset through the SRA Run selector [@runselector]. This indicated the number of runs in the dataset and also allowed me to download the metadata of my dataset. Obtaining a dataset that had high-quality data was crucial through this process, to access the quality of the data, the dataset had to be run through a 14-step bash pipeline created by Dr. Zimmerman. Dr. Zimmerman provided each student a unique Tule port container and ID to log into the USF server in order to successfully gain access to the 14-step Bash pipeline with our own unique dataset. By entering our SRA dataset ID into the pipeline, the output produced a number of trimmed fastq VCF files. The number of files produced depended on the number of samples, in my case, 69 VCF files were produced. Trimming the dataset was vital in order for the poor-quality data to be disposed of properly. I used a libre server known as Cyberduck [@cyberduck], to analyze my data efficiently. After reading some samples, it was evident that some data needed to be trimmed to arrange an easy final output of my data; therefore, by entering into the 5th step of the bash pipeline, “05_trim.sh”  I altered the “Minlen” to 50 to have the pipeline adjusted to my sequence data read length and was able to achieve a cleaner output.
 
-You may also want to use any of a range of different COVID data packages and data sources:
-
-* https://kjhealy.github.io/covdata/
-* https://github.com/como-ph/oxcovid19
-* https://ropensci.org/blog/2020/10/20/searching-medrxivr-and-biorxiv-preprint-data/
-* https://covidtracking.com/data/api
-  * `readr::read_csv("https://api.covidtracking.com/v1/states/daily.csv")`
-
-## Subsections are ok too
-
+To start the process of gathering all my tabular data, I needed to invest a great deal in research about my country and the conflicts during the time of my data and how it correlated to SARS-CoV-2. There were plenty of news articles about how the Israeli-Palestininan conflict left the Palestinian people far less equipped for the pandemic in regards to resources, infrastructure, and even vaccines than the Israeli people [@Israeliimpact]. There were a number of articles discussing the difference in the number of vaccines distributed to the Israeli territories in comparison to the Palestinian territories [@reuters2021]. As a result of these articles, the data to code about this issue fit together like a puzzle. By navigating back to my R (Tule) server, I began to invest my time in the Report.Rmd creating my figures and tables using ggplot2. 
+	
 # Results and Discussion
+
+After conducting an abundance of research on the effects of the Palestinian-Israeli conflict in regard to Covid-19 cases in Palestine, I  have concluded that the conflict had much to do with the improper distribution of vaccinations and the rise on Covid-19 cases in general.. This conclusion is supported by the data collected from the study Google conducted with Palestine, [@googlepali], and Israel [@googleIsrael] which showed that the number of cases was significantly higher in Palestinian territories than in Israeli territories. The “Israel” country with Jeruselum as the district is also arguably Palestinian territory as well which supported my argument even more. With all of my VCF files and compressed data regarding my SNPs, I automated all of my tables and figures using R code in my Tule server. The first figure I created was a histogram that demonstrated the quality of the SNPs in my dataset. The figure displayed the count of good-quality SNPs numerically which showed the validity of the quality of my dataset. My second figure is a bar plot that captures the average spot length within each gene. The average spot length within a gene can give an idea of the overall size of the gene, which can be useful for comparing the sizes of different genes or for identifying genes that are larger or smaller than average. The S, N, and ORF3a genes were the largest in length. My third figure is a line plot of relative SNPs across Palestine with a date on the x-axis and the mean number of SNPs on the y-axis. The sudden disappearance of data from April to June is what I really wanted to illuminate in this figure. A situation, that mostly took place in May was when the Palestinian Administration cut all coordination with the Israeli Civil Administration in "their" occupied territories. This took place after the new Israeli government took an oath regarding a coalition agreement that swore to move forward on adjoining parts of the West Bank. Israel did not react calmly, as they limited the Palestinian Administration violently in the West Bank, this included forces tasked with enforcing virus prevention measures. 
+
+The first table I created highlighted the frequency of the N gene regarding the location by city. The N gene is shown to be more frequent in Jerusalem (Palestinian) city. The N protein plays a crucial role in the virus's life cycle, helping to protect the viral genome and allowing the virus to replicate and spread [@Ngene]. This "spreading" gene is more frequent in Palestinian territory. position of the SNP depending on the unique release and collection date given. The next table dives deeper into this N gene phenomenon and displays the occurrences of the N gene. My final two tables work hand in hand comparing the number of vaccinations distributed in Palestine versus in Israel. Though these "countries" are one and the same. The significant increase in vaccinations in Israel is directly proportionate to the lack of resources distributed in Palestine. Palestinian territories were deprived of access to Covid-19 vaccinations and suffered as shown through the data. [@googlepali] In conclusion, I can efficiently say that there is enough evidence to accept that the Israeli-Palestinian conflict impacted the pandemic in Palestine tremendously.
 
 ```{r load-packages-and-functions}
 library("vcfR")
@@ -71,37 +72,118 @@ vcf_with_metadata <- add_genes_metadata_to_vcfstack(
 
 # Figures
 
-```{r sample-plot}
-# create a plot of unique SNP locations within each gene across all samples
+```{r}
+# create histogram to display average quality number in SNPs
+ggplot(vcf_with_metadata,
+       aes(x = as.numeric(qual))) +
+  geom_histogram()
+```
+**Figure 1**: The overall average quality number in SNPs. This is to prove validity of dataset
+
+```{r bar-plot-average-spot-length}
+# create a plot of average spot length within each gene
 vcf_with_metadata %>%
-  filter(!is.na(gene)) %>% # get rid of SNPs not in gene regions
-  group_by(gene, pos) %>%
-  tally() %>% # this gives a column n for the number of gene by position
+  group_by(gene, AvgSpotLen) %>%
+  tally() %>% # this gives a column n for the average spot length for each gene
   group_by(gene) %>%
-  tally() %>% # this collapses that down to the number of unique SNP locations
+  tally() %>%
   ggplot(aes(x = gene,
              y = n)) +
     geom_col() +
-    labs(title = "Count of distinct SNPs in Named SARS-CoV-2 Genes",
-         x = "Gene Name") +
+    labs(title = "Average Spot length Within Each Gene",
+         x = "Gene Identified") +
   theme_few() # get rid of the grey background
 ```
+**Figure 2**: A plot displaying the average spot length within each gene. Allows to identify any larger genes in a set of data.
 
-**Figure 1**: N and S genes have more unique SNPs in the set of samples analyzed.
+```{r plot-time-series}
+# produce a line plot of relative SNPs across Palestine with date
+# on the x axis and mean SNPs on the y axis
+  vcf_with_metadata %>%
+  group_by(Collection_Date, pos) %>%
+  tally() %>%
+  group_by(Collection_Date) %>%
+  tally() %>%
+  ggplot(aes(x = lubridate::ymd(Collection_Date),
+             y = n)) +
+       geom_point() +
+       labs(title = paste("SARS-Cov-2 SNP Changes in Palestine"),
+            x = "Date",
+            y = "Observed SNPs")
+```
+**Figure 3**: A line plot of relative SNPs across Palestine with date on the x-axis and mean SNPs on the y-axis
 
 # Tables
-
-```{r example-table}
-# An example table to show the length of each gene using its start and end
-gene_table %>%
-  mutate(length = end - start) %>%
-  select(gene_name, start, end, length) %>%
-  knitr::kable(col.names = c("Gene Name",
-                             "Start",
-                             "End",
-                             "Length"))
+```{r N-gene-SNPs-within-Israeli-Territory-and-Palestinian-territory}
+# show frequency of N gene in Palestinian territory
+vcf_with_metadata %>%
+  tidyr::separate(col = geo_loc_name,
+                  into = c("country", "city"),
+                  sep = ": ") %>%
+    tidyr::separate(col = city,
+                  into = c("city1", "city2"),
+                  sep = "\\\\, ") %>%
+filter(gene == "N") %>%
+select(gene, pos, alt, ref, city1, city2, ) %>%
+group_by(gene, pos, alt, ref, city1, city2, ) %>%
+tally() %>%
+arrange(desc(n)) %>%
+head(10) %>%
+arrange(pos) %>%
+knitr::kable(col.names = c("Gene",
+                        "Position",
+                        "Reference",
+                        "Variation",
+                        "city1",
+                        "city2",
+                        "n"))
 ```
+**Table 1**: Shows the frequency of N gene in Palestinian territory. N gene indicates traits of virus. The N gene frequency is more common amongst Palestinian territory. 
 
-**Table 1**: Gene names, locations, and lengths in the SARS-CoV-2 genome. Higher SNP counts in the S and N genes may be related to the larger size of these genes.
+```{r N-gene-mutation}
+# create a table to display the occurrences of the N gene
+vcf_with_metadata %>%
+filter(gene == "N") %>%
+select(gene, pos, alt, ref) %>%
+group_by(gene, pos, alt, ref) %>%
+tally() %>%
+arrange(desc(n)) %>%
+head(10) %>%
+arrange(pos) %>%
+knitr::kable(col.names = c("Gene",
+                        "Position",
+                        "Reference",
+                        "Variation",
+                        "Occurrences"))
+```
+**Table 2**: This table displays the occurrences of the N gene to compare with the frequency of the gene.
+
+```{r Table-cumulative-vacciantions-Israel} 
+# this is a table that shows the cumulative number of vaccines in Israel
+  israeli_vaccines <- read.csv("data/raw_data/vaccinationsLS.csv")
+  israeli_vaccines %>%
+  arrange(israeli_vaccines$date) %>%
+  select(date, location_key, cumulative_persons_vaccinated) %>%
+  unique() %>%
+  tail(25) %>%
+  knitr::kable(col.names = c("date",
+                             "location_key",
+                             "cumulative_persons_vaccinated"))
+```
+**Table 3**: Outside data source indicating the amount of cumulative vaccinations for Israel.
+
+```{r Table-cumulative-vacciantions-Palestine}
+# this is a table that shows the cumulative number of vaccines in Palestine
+palestine_vaccines <- read.csv("data/raw_data/vaccinations_PL.csv")
+palestine_vaccines %>%
+  arrange(palestine_vaccines$date) %>%
+  select(date, location_key, cumulative_persons_vaccinated) %>%
+  unique() %>%
+  tail(25) %>%
+  knitr::kable(col.names = c("date",
+                             "location_key",
+                             "cumulative_persons_vaccinated"))
+```
+**Table 4**: Outside data source indicating the amount of cumulative vaccinations for Palestine.
 
 # Sources Cited
